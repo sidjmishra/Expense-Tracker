@@ -1,4 +1,5 @@
 import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/screens/expense_tracker.dart';
 import 'package:expense_tracker/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -38,6 +39,8 @@ class _ExpenseDetailsState extends State<ExpenseDetails> {
 
         if (result != 0) {
           Navigator.pop(context);
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => ExpenseTracker()));
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text("Submitted Successfully"),
@@ -82,7 +85,7 @@ class _ExpenseDetailsState extends State<ExpenseDetails> {
               SizedBox(height: MediaQuery.of(context).size.height * (0.025)),
               TextFormField(
                 validator: (value) {
-                  return value!.isEmpty || value.length > 3
+                  return value!.isEmpty || value.length > 4
                       ? 'Enter 3 digit value'
                       : null;
                 },

@@ -26,15 +26,6 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
   int sat = 0;
   int sun = 0;
 
-  void delete(BuildContext context, Expense expense) async {
-    int result = await databaseClass.deleteData(expense.id!);
-    if (result != 0) {
-      var snackBar = const SnackBar(content: Text('Note Deleted Successfully'));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      updateList();
-    }
-  }
-
   void updateList() {
     final Future<Database> dbFuture = databaseClass.initializeDb();
     dbFuture.then((database) {
@@ -78,7 +69,6 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
                 sun += int.parse(expensesList[e].expense!);
               }
             }
-            // expensesList = eList;
             debugPrint(expensesList[0].id.toString());
             count = expensesList.length;
           });
@@ -96,6 +86,15 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         title: const Text('Personal Expenses'),
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       updateList();
+        //     },
+        //     icon: Icon(Icons.refresh),
+        //     tooltip: "Refresh",
+        //   ),
+        // ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -158,7 +157,7 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
                             radius: MediaQuery.of(context).size.width * (0.1),
                             backgroundColor: Colors.purple[700],
                             foregroundColor: Colors.white,
-                            child: Text("₹ ${expensesList[index].expense!}",
+                            child: Text("₹${expensesList[index].expense!}",
                                 textAlign: TextAlign.center, maxLines: 2),
                           ),
                           title: Text(
@@ -245,9 +244,9 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          "₹ $value",
+          "₹$value",
           style:
-              TextStyle(fontSize: MediaQuery.of(context).size.width * (0.03)),
+              TextStyle(fontSize: MediaQuery.of(context).size.width * (0.025)),
         ),
         Container(
           height: MediaQuery.of(context).size.height * (0.1),
@@ -262,30 +261,14 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
                   direction: Axis.vertical,
                   verticalDirection: VerticalDirection.down,
                   currentValue: value / 100,
+                  progressColor: Colors.purple,
                   borderRadius: BorderRadius.circular(20.0),
                 ),
         ),
-        // : RotatedBox(
-        //     quarterTurns: 1,
-        //     child: LinearProgressIndicator(
-        //       backgroundColor: Colors.grey[200],
-        //       color: Colors.purple,
-        //       value: (value * 0.1) / 100,
-        //     ),
-        //   )),
-        //   Container(
-        //   height: MediaQuery.of(context).size.height *
-        //       ((value * 0.1) / 1000),
-        //   width: MediaQuery.of(context).size.width * (0.05),
-        //   decoration: BoxDecoration(
-        //     color: Colors.purple,
-        //     borderRadius: BorderRadius.circular(20.0),
-        //   ),
-        // ),
         Text(
           day.substring(0, 1),
           style:
-              TextStyle(fontSize: MediaQuery.of(context).size.width * (0.03)),
+              TextStyle(fontSize: MediaQuery.of(context).size.width * (0.025)),
         ),
       ],
     );
