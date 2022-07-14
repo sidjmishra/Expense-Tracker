@@ -44,14 +44,14 @@ class _ExpenseDetailsState extends State<ExpenseDetails> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text("Submitted Successfully"),
-              duration: Duration(milliseconds: 300),
+              duration: Duration(milliseconds: 500),
             ),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text("Value not properly entered!"),
-              duration: Duration(milliseconds: 300),
+              duration: Duration(milliseconds: 500),
             ),
           );
         }
@@ -72,7 +72,7 @@ class _ExpenseDetailsState extends State<ExpenseDetails> {
             children: [
               TextFormField(
                 validator: (value) {
-                  return value!.isEmpty ? 'Enter value' : null;
+                  return value!.isEmpty ? 'Enter title' : null;
                 },
                 textCapitalization: TextCapitalization.words,
                 controller: name,
@@ -86,7 +86,7 @@ class _ExpenseDetailsState extends State<ExpenseDetails> {
               TextFormField(
                 validator: (value) {
                   return value!.isEmpty || value.length > 4
-                      ? 'Enter 3 digit value'
+                      ? 'Enter 4 digit amount'
                       : null;
                 },
                 controller: expenses,
